@@ -1,29 +1,52 @@
 let userSelectedSpeed = 1;
 
-function pauseVideo() {
+function fastforwardAds() {
+
+  const platform = window.location.hostname;
+
+  let adPlaying = false;
+
+  if (platform.includes("youtube")) {
+
+    adPlaying = !!document.querySelector(".ad-showing");
+
+  } 
+  else if (platform.includes("hotstar")) {
+
+    const adContainer = document.getElementById("ad-video-container");
+
+    if (adContainer && adContainer.children.length > 0) {
+      adPlaying = true;
+    }
+
+  } else {
+    return; // unsupported site
+  }
 
   const video = document.querySelector("video");
-  const adPlaying = document.querySelector(".ad-showing");
 
   if (!video) return;
 
   if (adPlaying) {
-    // To make sure the speed is not 10 already otherwise the userSpeed is misguided.
-    if(video.playbackRate !== 10){
-      // store the user selected speed
+
+    if (video.playbackRate !== 10) {
+
       userSelectedSpeed = video.playbackRate;
-      // speed up the video
+
       console.log("Ad detected → speeding up");
+
       video.playbackRate = 10;
+
     }
-    
+
   } else {
-    // set the user selected speed
-    if(video.playbackRate !== userSelectedSpeed){
+
+    if (video.playbackRate !== userSelectedSpeed) {
       video.playbackRate = userSelectedSpeed;
     }
+
   }
 
 }
 
-setInterval(pauseVideo, 1000);
+setInterval(fastforwardAds, 1000);
