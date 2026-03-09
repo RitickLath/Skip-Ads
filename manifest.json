@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Skip Youtube Ads",
+  "version": "1.0",
+  "description": "Skip the youtube ads with fast forward",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
